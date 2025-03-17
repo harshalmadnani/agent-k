@@ -5,7 +5,9 @@ import { ChainId } from "@kadena/types";
 import { getRpcUrl } from "./utils/get-rpc-url";
 
 export const createMagic = (chainId?: ChainId) => {
-  return new Magic("pk_live_FAE58C542213B8AF", {
+  const magicApiKey = process.env.MAGIC_API_KEY || "pk_live_E758CF81CD61BB40";
+  
+  return new Magic(magicApiKey, {
     extensions: [
       new KadenaExtension({
         rpcUrl: getRpcUrl(chainId),
