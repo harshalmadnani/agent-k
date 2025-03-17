@@ -202,7 +202,11 @@ function App() {
         </LoginContainer>
       ) : (
         <AppContainer>
-          <Navbar activeView={activeView} onToggleView={handleToggleView} />
+          <Navbar 
+            activeView={activeView} 
+            onToggleView={handleToggleView} 
+            onLogout={logout}
+          />
           <ContentContainer>
             {activeView === 'chat' ? (
               <FullWidthPanel visible={true}>
@@ -214,9 +218,6 @@ function App() {
               </FullWidthPanel>
             )}
           </ContentContainer>
-          <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
-            <button onClick={logout}>Logout</button>
-          </div>
         </AppContainer>
       )}
     </div>

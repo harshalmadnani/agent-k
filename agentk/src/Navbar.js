@@ -52,27 +52,52 @@ const ToggleButton = styled.button`
   }
 `;
 
-function Navbar({ activeView, onToggleView }) {
+const LogoutButton = styled.button`
+  background-color: #3d3d3d;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: #ff6464;
+  }
+`;
+
+const RightContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+`;
+
+function Navbar({ activeView, onToggleView, onLogout }) {
   return (
     <NavbarContainer>
       <Logo>
         <LogoImage src="/agentk.png" alt="AgentK Logo" />
         <LogoText>AgentK</LogoText>
       </Logo>
-      <ToggleContainer>
-        <ToggleButton 
-          active={activeView === 'chat'} 
-          onClick={() => onToggleView('chat')}
-        >
-          Chat
-        </ToggleButton>
-        <ToggleButton 
-          active={activeView === 'terminal'} 
-          onClick={() => onToggleView('terminal')}
-        >
-          Terminal
-        </ToggleButton>
-      </ToggleContainer>
+      <RightContainer>
+        <ToggleContainer>
+          <ToggleButton 
+            active={activeView === 'chat'} 
+            onClick={() => onToggleView('chat')}
+          >
+            Chat
+          </ToggleButton>
+          <ToggleButton 
+            active={activeView === 'terminal'} 
+            onClick={() => onToggleView('terminal')}
+          >
+            Terminal
+          </ToggleButton>
+        </ToggleContainer>
+        <LogoutButton onClick={onLogout}>
+          Logout
+        </LogoutButton>
+      </RightContainer>
     </NavbarContainer>
   );
 }
