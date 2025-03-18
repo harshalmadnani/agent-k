@@ -76,7 +76,7 @@ function Navbar({ activeView, onToggleView, onLogout }) {
   return (
     <NavbarContainer>
       <Logo>
-        <LogoImage src="/agentk.png" alt="AgentK Logo" />
+        <LogoImage src="https://wbsnlpviggcnwqfyfobh.supabase.co/storage/v1/object/public/images/agent-images/1741589931523.png" alt="AgentK Logo" />
         <LogoText>AgentK</LogoText>
       </Logo>
       <RightContainer>
