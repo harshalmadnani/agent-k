@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import AgentLauncher from './AgentLauncher';
 
 const NavbarContainer = styled.div`
   display: flex;
@@ -72,33 +73,51 @@ const RightContainer = styled.div`
   gap: 15px;
 `;
 
+const CreateAgentButton = styled(ToggleButton)`
+  background-color: #64ff64;
+  color: #000;
+  font-weight: bold;
+  
+  &:hover {
+    background-color: #50cc50;
+  }
+`;
+
 function Navbar({ activeView, onToggleView, onLogout }) {
+  const [showLauncher, setShowLauncher] = useState(false);
+
   return (
-    <NavbarContainer>
-      <Logo>
-        <LogoImage src="https://wbsnlpviggcnwqfyfobh.supabase.co/storage/v1/object/public/images/agent-images/1741589931523.png" alt="AgentK Logo" />
-        <LogoText>AgentK</LogoText>
-      </Logo>
-      <RightContainer>
-        <ToggleContainer>
-          <ToggleButton 
-            active={activeView === 'chat'} 
-            onClick={() => onToggleView('chat')}
-          >
-            Chat
-          </ToggleButton>
-          <ToggleButton 
-            active={activeView === 'terminal'} 
-            onClick={() => onToggleView('terminal')}
-          >
-            Terminal
-          </ToggleButton>
-        </ToggleContainer>
-        <LogoutButton onClick={onLogout}>
-          Logout
-        </LogoutButton>
-      </RightContainer>
-    </NavbarContainer>
+    <>
+      <NavbarContainer>
+        <Logo>
+          <LogoImage src="https://wbsnlpviggcnwqfyfobh.supabase.co/storage/v1/object/public/images/agent-images/1741589931523.png" alt="AgentK Logo" />
+          <LogoText>AgentK</LogoText>
+        </Logo>
+        <RightContainer>
+          <CreateAgentButton onClick={() => setShowLauncher(true)}>
+            Create Agent
+          </CreateAgentButton>
+          <ToggleContainer>
+            <ToggleButton 
+              active={activeView === 'chat'} 
+              onClick={() => onToggleView('chat')}
+            >
+              Chat
+            </ToggleButton>
+            <ToggleButton 
+              active={activeView === 'terminal'} 
+              onClick={() => onToggleView('terminal')}
+            >
+              Terminal
+            </ToggleButton>
+          </ToggleContainer>
+          <LogoutButton onClick={onLogout}>
+            Logout
+          </LogoutButton>
+        </RightContainer>
+      </NavbarContainer>
+      {showLauncher && <AgentLauncher onClose={() => setShowLauncher(false)} />}
+    </>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -142,6 +143,7 @@ const LoadingDots = styled.div`
 `;
 
 function ChatInterface({ onCommand }) {
+  const { agentName } = useParams();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -158,11 +160,13 @@ function ChatInterface({ onCommand }) {
   React.useEffect(() => {
     setMessages([
       { 
-        text: "Hey there! I'm AgentK, your Kadena ecosystem guide. What can I help you with today?", 
+        text: agentName 
+          ? `Hey there! I'm ${agentName}, your AI assistant. What can I help you with today?`
+          : "Hey there! I'm AgentK, your Kadena ecosystem guide. What can I help you with today?", 
         isUser: false 
       }
     ]);
-  }, []);
+  }, [agentName]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
