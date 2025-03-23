@@ -11,6 +11,15 @@ import { ChainId } from "@kadena/types";
 // Define the type locally
 const KadenaUserMetadata = {}; // This is a placeholder, we'll use proper typing later
 
+interface TerminalOutput {
+  type: 'command' | 'output';
+  content: string;
+}
+
+interface PanelProps {
+  visible?: boolean;
+}
+
 const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -25,7 +34,7 @@ const ContentContainer = styled.div`
   overflow: hidden;
 `;
 
-const Panel = styled.div`
+const Panel = styled.div<PanelProps>`
   flex: 1;
   background-color: #2d2d2d;
   border-radius: 8px;
@@ -102,12 +111,12 @@ const LoginButton = styled.button`
 `;
 
 function App() {
-  const [terminalOutput, setTerminalOutput] = useState([]);
+  const [terminalOutput, setTerminalOutput] = useState<TerminalOutput[]>([]);
   const [magic, setMagic] = useState(createMagic());
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState<typeof KadenaUserMetadata | null>(null);
   const [selectedChainId, setSelectedChainId] = useState(DEFAULT_CHAIN_ID);
   const [activeView, setActiveView] = useState('chat'); // 'chat' or 'terminal'
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -132,7 +141,7 @@ function App() {
     initAppState();
   }, []);
 
-  const handleCommand = (command) => {
+  const handleCommand = (command: string) => {
     setTerminalOutput(prev => [...prev, { type: 'command', content: command }]);
     setTerminalOutput(prev => [...prev, { type: 'output', content: `Executed: ${command}` }]);
   };
@@ -165,7 +174,7 @@ function App() {
     }
   };
 
-  const handleToggleView = (view) => {
+  const handleToggleView = (view: 'chat' | 'terminal') => {
     setActiveView(view);
   };
 
@@ -214,7 +223,7 @@ function App() {
               </FullWidthPanel>
             ) : (
               <FullWidthPanel visible={true}>
-                <Terminal output={terminalOutput} />
+                <Terminal selectedAgent={38} />
               </FullWidthPanel>
             )}
           </ContentContainer>
