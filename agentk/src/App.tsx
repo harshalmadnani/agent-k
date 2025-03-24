@@ -363,13 +363,7 @@ function App() {
               onChange={(event) => setEmail(event.target.value)}
               disabled={isSubmitting}
             />
-            <LoginInput
-              type="text"
-              placeholder="Enter token name"
-              value={tokenName}
-              onChange={(event) => setTokenName(event.target.value)}
-              disabled={isSubmitting}
-            />
+       
             <LoginButton 
               onClick={loginWithEmailOTP} 
               disabled={!email || isSubmitting}
