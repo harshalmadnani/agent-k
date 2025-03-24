@@ -4,7 +4,7 @@ import ChatInterface from './ChatInterface';
 import Terminal from './Terminal';
 import Navbar from './Navbar';
 import { KadenaExtension } from "@magic-ext/kadena";
-import { addSignatures, ITransactionDescriptor } from "@kadena/client";
+import { addSignatures, ITransactionDescriptor,Pact,createClient } from "@kadena/client";
 import { PactNumber } from "@kadena/pactjs";
 import {  SignedCommand } from "@magic-ext/kadena/dist/types/types";
 import { createMagic } from "./magic";
@@ -154,11 +154,28 @@ const LoginButton = styled.button`
   }
 `;
 
+const TransactionContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+`;
+
+const TransactionButton = styled(LoginButton)`
+  width: auto;
+`;
+
+const TransactionInput = styled(LoginInput)`
+  width: 200px;
+  margin: 0;
+`;
+
 function App() {
   const [terminalOutput, setTerminalOutput] = useState<TerminalOutput[]>([]);
   const [magic, setMagic] = useState(createMagic());
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
+  const [tokenName, setTokenName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState<KadenaUserMetadata | null>(null);
   const [selectedChainId, setSelectedChainId] = useState<ChainId>(DEFAULT_CHAIN_ID as ChainId);
@@ -346,6 +363,13 @@ function App() {
               onChange={(event) => setEmail(event.target.value)}
               disabled={isSubmitting}
             />
+            <LoginInput
+              type="text"
+              placeholder="Enter token name"
+              value={tokenName}
+              onChange={(event) => setTokenName(event.target.value)}
+              disabled={isSubmitting}
+            />
             <LoginButton 
               onClick={loginWithEmailOTP} 
               disabled={!email || isSubmitting}
@@ -361,9 +385,20 @@ function App() {
             onToggleView={handleToggleView} 
             onLogout={logout}
           />
-          <button disabled={disabled} onClick={handleSendTransaction}>
-            {disabled ? "sending..." : "Send Transaction"}
-          </button>
+          <TransactionContainer>
+            <TransactionInput
+              type="text"
+              placeholder="Enter token name"
+              value={tokenName}
+              onChange={(event) => setTokenName(event.target.value)}
+            />
+            <TransactionButton 
+              disabled={disabled} 
+              onClick={handleSendTransaction}
+            >
+              {disabled ? "sending..." : "Send Transaction"}
+            </TransactionButton>
+          </TransactionContainer>
           <ContentContainer>
             <Routes>
               <Route 
