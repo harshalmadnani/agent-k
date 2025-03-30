@@ -38,7 +38,7 @@ const ToggleContainer = styled.div`
   gap: 10px;
 `;
 
-const ToggleButton = styled.button`
+const ToggleButton = styled.button<{ active: boolean }>`
   background-color: ${props => props.active ? '#64ff64' : '#3d3d3d'};
   color: ${props => props.active ? '#000' : '#fff'};
   border: none;
@@ -83,8 +83,14 @@ const CreateAgentButton = styled(ToggleButton)`
   }
 `;
 
-function Navbar({ activeView, onToggleView, onLogout }) {
-  const [showLauncher, setShowLauncher] = useState(false);
+interface NavbarProps {
+  activeView: 'chat' | 'terminal';
+  onToggleView: (view: 'chat' | 'terminal') => void;
+  onLogout: () => void;
+}
+
+function Navbar({ activeView, onToggleView, onLogout }: NavbarProps): React.ReactElement {
+  const [showLauncher, setShowLauncher] = useState<boolean>(false);
 
   return (
     <>
@@ -94,7 +100,7 @@ function Navbar({ activeView, onToggleView, onLogout }) {
           <LogoText>AgentK</LogoText>
         </Logo>
         <RightContainer>
-          <CreateAgentButton onClick={() => setShowLauncher(true)}>
+          <CreateAgentButton active={false} onClick={() => setShowLauncher(true)}>
             Create Agent
           </CreateAgentButton>
           <ToggleContainer>

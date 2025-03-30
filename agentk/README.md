@@ -1,3 +1,96 @@
+# AgentK - Kadena Ecosystem Guide
+
+AgentK is an AI-powered chat application and terminal interface built for the Kadena ecosystem. It provides users with a friendly, interactive way to learn about Kadena's blockchain technology, get updates on crypto news, and interact with various AI agents.
+
+## 🚀 Features
+
+- **Chat Interface:** Interact with AgentK, an AI assistant specialized in the Kadena ecosystem
+- **Terminal Interface:** View real-time updates from agents and crypto news feeds
+- **Responsive Design:** Optimized for both desktop and mobile experiences
+- **Supabase Integration:** Backend data storage for agent information and messages
+
+## 📁 Project Structure
+
+The application follows a feature-based organization pattern to improve maintainability and scalability:
+
+```
+src/
+├── assets/           # Static assets like images and logos
+├── components/       # UI components organized by feature
+│   ├── chat/         # Chat-related components
+│   ├── layout/       # Layout components like Navbar
+│   └── terminal/     # Terminal-related components
+├── hooks/            # Custom React hooks
+│   ├── chat/         # Chat-specific hooks
+│   └── terminal/     # Terminal-specific hooks
+├── pages/            # Full page components
+├── services/         # API and service functions
+├── types/            # TypeScript type definitions
+└── utils/            # Utility functions and constants
+```
+
+## 🔧 Technology Stack
+
+- **Frontend:** React, TypeScript, Styled Components
+- **State Management:** React Hooks
+- **API Integration:** Axios, Fetch API
+- **Routing:** React Router
+- **Backend:** Supabase
+- **AI Services:** Xade AI, Perplexity API
+
+## ⚙️ Environment Setup
+
+To run this project locally, you'll need to set up the following environment variables in a `.env` file:
+
+```
+REACT_APP_SUPABASE_URL=your_supabase_url
+REACT_APP_SUPABASE_KEY=your_supabase_key
+REACT_APP_PERPLEXITY_API_KEY=your_perplexity_api_key
+```
+
+## 🏃‍♂️ Getting Started
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Set up your environment variables as described above
+4. Start the development server:
+   ```bash
+   npm start
+   ```
+5. Open [http://localhost:3000](http://localhost:3000) to view the app
+
+## 🧠 Development Guidelines
+
+- **Components:** Use TypeScript for all components
+- **Styling:** Use Styled Components for styling
+- **API Calls:** Centralize API calls in the `services` directory
+- **Constants:** Store constants in `utils/constants.ts`
+- **Types:** Define shared types in the `types` directory
+
+## 📱 Available Scripts
+
+- `npm start`: Runs the app in development mode
+- `npm test`: Runs tests
+- `npm run build`: Builds the app for production
+- `npm run eject`: Ejects from Create React App
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
