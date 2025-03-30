@@ -27,10 +27,10 @@ const Section = styled.div<{ expanded: boolean }>`
 `;
 
 const MainPage: React.FC = () => {
-  const [activeView, setActiveView] = useState<'chat' | 'terminal'>('chat');
+  const [activeView, setActiveView] = useState<'chat' | 'terminal' | 'agent'>('chat');
   const [selectedAgent, setSelectedAgent] = useState(38);
   
-  const handleToggleView = (view: 'chat' | 'terminal') => {
+  const handleToggleView = (view: 'chat' | 'terminal' | 'agent') => {
     setActiveView(view);
   };
   
@@ -52,13 +52,20 @@ const MainPage: React.FC = () => {
         onLogout={handleLogout} 
       />
       <ContentContainer>
-        {activeView === 'chat' ? (
+        {activeView === 'chat' && (
           <Section expanded={true}>
             <ChatInterface onCommand={handleCommand} />
           </Section>
-        ) : (
+        )}
+        {activeView === 'terminal' && (
           <Section expanded={true}>
             <Terminal selectedAgent={selectedAgent} />
+          </Section>
+        )}
+        {activeView === 'agent' && (
+          <Section expanded={true}>
+            {/* The agent view content is handled by the modal in Navbar */}
+            <ChatInterface onCommand={handleCommand} />
           </Section>
         )}
       </ContentContainer>

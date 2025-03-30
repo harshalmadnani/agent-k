@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import AgentLauncher from '../agent-launcher';
 
 const NavbarContainer = styled.div`
   display: flex;
@@ -73,23 +74,39 @@ const RightContainer = styled.div`
 `;
 
 const CreateAgentButton = styled(ToggleButton)`
-  background-color: #64ff64;
-  color: #000;
-  font-weight: bold;
-  
   &:hover {
-    background-color: #50cc50;
+    background-color: ${props => props.active ? '#50cc50' : '#4a4a4a'};
   }
 `;
 
 interface NavbarProps {
-  activeView: 'chat' | 'terminal';
-  onToggleView: (view: 'chat' | 'terminal') => void;
+  activeView: 'chat' | 'terminal' | 'agent';
+  onToggleView: (view: 'chat' | 'terminal' | 'agent') => void;
   onLogout: () => void;
 }
 
 function Navbar({ activeView, onToggleView, onLogout }: NavbarProps): React.ReactElement {
   const [showLauncher, setShowLauncher] = useState<boolean>(false);
+
+  // Synchronize showLauncher state with activeView
+  useEffect(() => {
+    if (activeView !== 'agent' && showLauncher) {
+      setShowLauncher(false);
+    }
+  }, [activeView]);
+
+  // Listen for navigateToChat event from AgentLauncher
+  useEffect(() => {
+    const handleNavigateToChat = () => {
+      onToggleView('chat');
+    };
+    
+    window.addEventListener('navigateToChat', handleNavigateToChat);
+    
+    return () => {
+      window.removeEventListener('navigateToChat', handleNavigateToChat);
+    };
+  }, [onToggleView]);
 
   return (
     <>
@@ -99,19 +116,31 @@ function Navbar({ activeView, onToggleView, onLogout }: NavbarProps): React.Reac
           <LogoText>AgentK</LogoText>
         </Logo>
         <RightContainer>
-          <CreateAgentButton active={false} onClick={() => setShowLauncher(true)}>
+          <CreateAgentButton 
+            active={activeView === 'agent'} 
+            onClick={() => {
+              setShowLauncher(true);
+              onToggleView('agent');
+            }}
+          >
             Create Agent
           </CreateAgentButton>
           <ToggleContainer>
             <ToggleButton 
               active={activeView === 'chat'} 
-              onClick={() => onToggleView('chat')}
+              onClick={() => {
+                setShowLauncher(false);
+                onToggleView('chat');
+              }}
             >
               Chat
             </ToggleButton>
             <ToggleButton 
               active={activeView === 'terminal'} 
-              onClick={() => onToggleView('terminal')}
+              onClick={() => {
+                setShowLauncher(false);
+                onToggleView('terminal');
+              }}
             >
               Terminal
             </ToggleButton>
@@ -122,45 +151,7 @@ function Navbar({ activeView, onToggleView, onLogout }: NavbarProps): React.Reac
         </RightContainer>
       </NavbarContainer>
       {showLauncher && (
-        <div>
-          {/* Agent Launcher would go here - simplified for structure refactoring */}
-          <div style={{ 
-            position: 'fixed', 
-            top: 0, 
-            left: 0, 
-            right: 0, 
-            bottom: 0, 
-            backgroundColor: 'rgba(0,0,0,0.8)', 
-            zIndex: 100,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center' 
-          }}>
-            <div style={{ 
-              backgroundColor: '#1a1a1a', 
-              padding: 20, 
-              borderRadius: 8, 
-              width: '80%', 
-              maxWidth: 600 
-            }}>
-              <h2 style={{ color: '#64ff64' }}>Create Agent</h2>
-              <p style={{ color: 'white' }}>Agent creation UI would go here</p>
-              <button 
-                style={{ 
-                  backgroundColor: '#64ff64', 
-                  color: 'black', 
-                  border: 'none', 
-                  padding: '8px 16px', 
-                  borderRadius: 4,
-                  cursor: 'pointer'
-                }}
-                onClick={() => setShowLauncher(false)}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
+        <AgentLauncher onClose={() => setShowLauncher(false)} />
       )}
     </>
   );
