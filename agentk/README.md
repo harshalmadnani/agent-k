@@ -1,6 +1,6 @@
 # AgentK - Kadena Ecosystem Guide
 
-AgentK is an AI-powered chat application and terminal interface built for the Kadena ecosystem. It provides users with a friendly, interactive way to learn about Kadena's blockchain technology, get updates on crypto news, and interact with various AI agents.
+AgentK is an AI-powered chat application and terminal interface built for the Kadena ecosystem. It provides users with a friendly, interactive way to learn about Kadena's blockchain technology, get updates on crypto news, and interact with various AI agents specialized in blockchain and cryptocurrency knowledge.
 
 ## 🚀 Features
 
@@ -18,25 +18,47 @@ src/
 ├── assets/           # Static assets like images and logos
 ├── components/       # UI components organized by feature
 │   ├── chat/         # Chat-related components
+│   │   ├── ChatBox/  # Main chat interface
+│   │   ├── Message/  # Message display components
+│   │   └── Input/    # User input components
 │   ├── layout/       # Layout components like Navbar
 │   └── terminal/     # Terminal-related components
+│       ├── Feed/     # News and update feeds
+│       └── Command/  # Command input and response
 ├── hooks/            # Custom React hooks
 │   ├── chat/         # Chat-specific hooks
 │   └── terminal/     # Terminal-specific hooks
 ├── pages/            # Full page components
 ├── services/         # API and service functions
+│   ├── ai/           # AI integration services
+│   ├── crypto/       # Cryptocurrency data services
+│   └── supabase/     # Database interaction
 ├── types/            # TypeScript type definitions
+├── context/          # React context providers
 └── utils/            # Utility functions and constants
+    ├── formatting/   # Data formatting utilities
+    ├── validation/   # Input validation
+    └── constants/    # Application constants
 ```
 
 ## 🔧 Technology Stack
 
-- **Frontend:** React, TypeScript, Styled Components
-- **State Management:** React Hooks
-- **API Integration:** Axios, Fetch API
-- **Routing:** React Router
-- **Backend:** Supabase
-- **AI Services:** Xade AI, Perplexity API
+- **Frontend:** React 18+, TypeScript, Styled Components
+- **State Management:** React Hooks, Context API
+- **API Integration:** Axios, Fetch API, WebSockets for real-time data
+- **Routing:** React Router v6
+- **Backend:** Supabase (PostgreSQL, Authentication, Storage)
+- **AI Services:** Xade AI, Perplexity API, Custom fine-tuned models
+- **Testing:** Jest, React Testing Library
+- **Build Tools:** Webpack, Babel
+- **Deployment:** Vercel, Netlify
+
+## 📋 Prerequisites
+
+Before you begin, ensure you have the following installed:
+- Node.js (v14.0.0 or later)
+- npm (v6.0.0 or later) or yarn (v1.22.0 or later)
+- Git
 
 ## ⚙️ Environment Setup
 
@@ -46,36 +68,89 @@ To run this project locally, you'll need to set up the following environment var
 REACT_APP_SUPABASE_URL=your_supabase_url
 REACT_APP_SUPABASE_KEY=your_supabase_key
 REACT_APP_PERPLEXITY_API_KEY=your_perplexity_api_key
+REACT_APP_KADENA_API_URL=your_kadena_api_url
+REACT_APP_XADE_AI_KEY=your_xade_ai_key
+REACT_APP_CRYPTO_DATA_API=your_crypto_data_api
 ```
 
 ## 🏃‍♂️ Getting Started
 
 1. Clone the repository
+   ```bash
+   git clone https://github.com/harshalmadnani/agent-k.git
+   cd agent-k
+   ```
+
 2. Install dependencies:
    ```bash
    npm install
+   # or
+   yarn install
    ```
+
 3. Set up your environment variables as described above
+
 4. Start the development server:
    ```bash
    npm start
+   # or
+   yarn start
    ```
+
 5. Open [http://localhost:3000](http://localhost:3000) to view the app
 
 ## 🧠 Development Guidelines
 
-- **Components:** Use TypeScript for all components
-- **Styling:** Use Styled Components for styling
-- **API Calls:** Centralize API calls in the `services` directory
-- **Constants:** Store constants in `utils/constants.ts`
-- **Types:** Define shared types in the `types` directory
+- **Components:** Use TypeScript for all components with proper interface definitions
+- **Styling:** Use Styled Components for styling with theme consistency
+- **API Calls:** Centralize API calls in the `services` directory with proper error handling
+- **State Management:** Use React Context for global state, hooks for component-level state
+- **Constants:** Store constants in `utils/constants.ts` to avoid magic strings
+- **Types:** Define shared types in the `types` directory with comprehensive documentation
+- **Testing:** Write unit tests for components and integration tests for key flows
+- **Commits:** Follow conventional commit format (feat, fix, docs, style, refactor, test, chore)
+
+## 🔍 Code Quality
+
+- Run linting:
+  ```bash
+  npm run lint
+  # or
+  yarn lint
+  ```
+
+- Run tests:
+  ```bash
+  npm test
+  # or
+  yarn test
+  ```
 
 ## 📱 Available Scripts
 
 - `npm start`: Runs the app in development mode
-- `npm test`: Runs tests
+- `npm test`: Runs tests with Jest
 - `npm run build`: Builds the app for production
 - `npm run eject`: Ejects from Create React App
+- `npm run lint`: Runs ESLint to check code quality
+- `npm run format`: Formats code with Prettier
+- `npm run storybook`: Runs Storybook for component development (if configured)
+
+## 🚀 Deployment
+
+Instructions for deploying to production:
+
+1. Build the production bundle:
+   ```bash
+   npm run build
+   # or
+   yarn build
+   ```
+
+2. Deploy to your preferred hosting service:
+   - For Vercel: `vercel --prod`
+   - For Netlify: `netlify deploy --prod`
+   - For GitHub Pages: Configure your repository settings
 
 ## 🤝 Contributing
 
@@ -87,9 +162,21 @@ Contributions are welcome! Please follow these steps:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+Please ensure your code follows our coding standards and includes appropriate tests.
+
+## 🛣️ Roadmap
+
+- **Q3 2023**: Initial release with chat and terminal functionality
+- **Q4 2023**: Add wallet integration and transaction tracking
+- **Q1 2024**: Expand agent capabilities and educational resources
+- **Q2 2024**: Implement community features and collaborative tools
+- **Q3 2024**: Add developer tools and API documentation
+
 ## 📄 License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+
+
 
 # Getting Started with Create React App
 
